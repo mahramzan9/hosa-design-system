@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: 校验 Token 与产物一致性
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 构建 Token 产物
+        run: node scripts/build-tokens.mjs
+
+      - name: 检查产物是否与数据源同步
+        run: |
+          if ! git diff --quiet -- assets/tokens/; then
+            echo "::error::Token 产物与 source.json 不同步，请运行 node scripts/build-tokens.mjs 后提交"
+            git diff --stat -- assets/tokens/
+            exit 1
+          fi
+
+      - name: 对比度校验（WCAG AA）
+        run: node scripts/check-contrast.mjs
+
+      - name: Figma Token 导出
+        run: node scripts/build-figma-tokens.mjs
+
+      - name: 检查 Figma Token 是否同步
+        run: |
+          if ! git diff --quiet -- assets/tokens/figma-tokens.json; then
+            echo "::error::Figma Token 已过期，请运行 node scripts/build-figma-tokens.mjs 后提交"
+            exit 1
+          fi
+
+  typecheck:
+    name: TypeScript 类型检查
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install --no-audit --no-fund
+      - run: npx tsc --noEmit assets/components/*.tsx --jsx react-jsx --esModuleInterop --skipLibCheck --moduleResolution bundler --module esnext --target es2020 --lib es2020,dom
+
+  install-test:
+    name: 安装脚本冒烟测试
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: dry-run
+        run: node scripts/install.mjs --target . --react --dry-run
+      - name: 实际安装到临时目录
+        run: |
+          mkdir -p /tmp/consumer
+          node scripts/install.mjs --target /tmp/consumer --react
+          test -f /tmp/consumer/src/design-system/styles/index.css
+          test -f /tmp/consumer/src/design-system/index.ts
+          test -f /tmp/consumer/src/design-system/components/core.tsx
+          test -f /tmp/consumer/src/design-system/mascot/hosa-main-transparent.png
+          echo "安装产物齐全"

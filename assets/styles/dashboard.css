@@ -1,0 +1,347 @@
+/**
+ * 看板专项层 — 组件样式
+ * 依赖: base.css + components.css
+ *
+ * 覆盖组件:
+ *   MetricCard / StatTile / TrendValue / ChartFrame / ChartLegend / ChartEmpty
+ *   DataTable / FilterBar / DateRangePicker / SegmentedControl
+ *   DashboardGrid / PanelGrid / InsightList / LoadingOverlay / ThresholdBar
+ */
+
+/* ============ 指标卡 ============ */
+.ds-metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2);
+  min-width: var(--ds-component-metric-card-min-width);
+  padding: var(--ds-component-metric-card-padding);
+  background-color: var(--ds-semantic-bg-surface);
+  border: var(--ds-component-card-border);
+  border-radius: var(--ds-component-metric-card-radius);
+  box-shadow: var(--ds-component-card-shadow);
+  position: relative;
+  overflow: hidden;
+}
+.ds-metric__label {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+  font-size: var(--ds-component-metric-card-label-font-size);
+  color: var(--ds-semantic-text-secondary);
+}
+.ds-metric__value {
+  display: flex;
+  align-items: baseline;
+  gap: var(--ds-space-2);
+  font-size: var(--ds-component-metric-card-value-font-size);
+  font-weight: var(--ds-font-weight-semibold);
+  line-height: var(--ds-font-line-height-tight);
+  letter-spacing: var(--ds-font-letter-spacing-tight);
+  font-variant-numeric: tabular-nums;
+}
+.ds-metric__unit {
+  font-size: var(--ds-font-size-body);
+  font-weight: var(--ds-font-weight-regular);
+  color: var(--ds-semantic-text-tertiary);
+}
+.ds-metric__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-3);
+  font-size: var(--ds-font-size-caption);
+  color: var(--ds-semantic-text-tertiary);
+}
+
+/* 趋势值 */
+.ds-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-1);
+  font-size: var(--ds-font-size-small);
+  font-weight: var(--ds-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+.ds-trend--positive { color: var(--ds-semantic-trend-positive); }
+.ds-trend--negative { color: var(--ds-semantic-trend-negative); }
+.ds-trend--flat { color: var(--ds-semantic-trend-flat); }
+.ds-trend__arrow { font-size: 10px; line-height: 1; }
+.ds-trend__window { font-weight: var(--ds-font-weight-regular); color: var(--ds-semantic-text-tertiary); }
+
+/* 迷你趋势条 */
+.ds-spark {
+  display: block;
+  width: 100%;
+  height: 32px;
+  overflow: visible;
+}
+.ds-spark__line { fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.ds-spark__area { opacity: 0.12; }
+.ds-spark--positive .ds-spark__line { stroke: var(--ds-semantic-trend-positive); }
+.ds-spark--positive .ds-spark__area { fill: var(--ds-semantic-trend-positive); }
+.ds-spark--negative .ds-spark__line { stroke: var(--ds-semantic-trend-negative); }
+.ds-spark--negative .ds-spark__area { fill: var(--ds-semantic-trend-negative); }
+.ds-spark--flat .ds-spark__line { stroke: var(--ds-semantic-trend-flat); }
+.ds-spark--flat .ds-spark__area { fill: var(--ds-semantic-trend-flat); }
+
+/* ============ 图表容器 ============ */
+.ds-chart {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ds-semantic-bg-surface);
+  border: var(--ds-component-card-border);
+  border-radius: var(--ds-component-card-radius);
+  box-shadow: var(--ds-component-card-shadow);
+  overflow: hidden;
+}
+.ds-chart__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ds-space-4);
+  padding: var(--ds-space-5) var(--ds-space-5) var(--ds-space-3);
+}
+.ds-chart__title { font-size: var(--ds-font-size-title-sm); font-weight: var(--ds-font-weight-semibold); }
+.ds-chart__subtitle { font-size: var(--ds-font-size-small); color: var(--ds-semantic-text-tertiary); margin-top: var(--ds-space-1); }
+.ds-chart__actions { display: flex; align-items: center; gap: var(--ds-space-2); }
+.ds-chart__body {
+  position: relative;
+  padding: 0 var(--ds-space-5) var(--ds-space-5);
+}
+.ds-chart__body--xs { height: var(--ds-component-chart-height-xs); }
+.ds-chart__body--sm { height: var(--ds-component-chart-height-sm); }
+.ds-chart__body--md { height: var(--ds-component-chart-height-md); }
+.ds-chart__body--lg { height: var(--ds-component-chart-height-lg); }
+.ds-chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-component-chart-legend-gap);
+  padding: 0 var(--ds-space-5) var(--ds-space-4);
+}
+.ds-chart__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+  font-size: var(--ds-font-size-caption);
+  color: var(--ds-semantic-text-secondary);
+}
+.ds-chart__legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex: 0 0 auto;
+}
+
+/* 图表内元素 */
+.ds-chart__grid-line { stroke: var(--ds-semantic-chart-grid); stroke-width: 1; }
+.ds-chart__axis-line { stroke: var(--ds-semantic-chart-axis); stroke-width: 1; }
+.ds-chart__axis-label {
+  fill: var(--ds-semantic-chart-axis-label);
+  font-size: var(--ds-component-chart-axis-title-size);
+  font-family: var(--ds-font-family-sans);
+}
+.ds-chart__series { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ds-chart__bar { rx: 2; }
+.ds-chart__tooltip {
+  position: absolute;
+  padding: var(--ds-space-2) var(--ds-space-3);
+  border-radius: var(--ds-radius-md);
+  background-color: var(--ds-semantic-chart-tooltip-bg);
+  color: var(--ds-semantic-chart-tooltip-fg);
+  font-size: var(--ds-font-size-caption);
+  line-height: var(--ds-font-line-height-snug);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: var(--ds-z-index-tooltip);
+  box-shadow: var(--ds-shadow-md);
+}
+.ds-chart__tooltip-row { display: flex; align-items: center; justify-content: space-between; gap: var(--ds-space-4); }
+.ds-chart__tooltip-value { font-variant-numeric: tabular-nums; font-weight: var(--ds-font-weight-semibold); }
+
+.ds-chart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-2);
+  height: 100%;
+  color: var(--ds-semantic-text-tertiary);
+  font-size: var(--ds-font-size-small);
+}
+
+/* ============ 数据表（看板版） ============ */
+.ds-dtable {
+  background-color: var(--ds-semantic-bg-surface);
+  border: var(--ds-component-card-border);
+  border-radius: var(--ds-component-card-radius);
+  box-shadow: var(--ds-component-card-shadow);
+  overflow: hidden;
+}
+.ds-dtable__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-4);
+  padding: var(--ds-space-4) var(--ds-space-5);
+  border-bottom: 1px solid var(--ds-semantic-border-subtle);
+  flex-wrap: wrap;
+}
+.ds-dtable__title { font-size: var(--ds-font-size-title-sm); font-weight: var(--ds-font-weight-semibold); }
+.ds-dtable__toolbar-actions { display: flex; align-items: center; gap: var(--ds-space-2); flex-wrap: wrap; }
+.ds-dtable__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-4);
+  padding: var(--ds-space-3) var(--ds-space-5);
+  border-top: 1px solid var(--ds-semantic-border-subtle);
+}
+.ds-dtable__cell-name { display: flex; align-items: center; gap: var(--ds-space-3); }
+.ds-dtable__cell-sub { font-size: var(--ds-font-size-caption); color: var(--ds-semantic-text-tertiary); }
+
+/* ============ 筛选栏 ============ */
+.ds-filterbar {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-3);
+  padding: var(--ds-space-3) var(--ds-space-4);
+  background-color: var(--ds-semantic-bg-surface);
+  border: var(--ds-component-card-border);
+  border-radius: var(--ds-radius-lg);
+  flex-wrap: wrap;
+}
+.ds-filterbar__label {
+  font-size: var(--ds-font-size-small);
+  color: var(--ds-semantic-text-secondary);
+  white-space: nowrap;
+}
+.ds-filterbar__spacer { flex: 1 1 auto; }
+.ds-filterbar__group { display: flex; align-items: center; gap: var(--ds-space-2); }
+
+/* 分段控件 */
+.ds-segmented {
+  display: inline-flex;
+  padding: 2px;
+  background-color: var(--ds-semantic-bg-surface-muted);
+  border-radius: var(--ds-radius-md);
+  gap: 2px;
+}
+.ds-segmented__item {
+  padding: 0 var(--ds-space-3);
+  height: 28px;
+  border: none;
+  border-radius: var(--ds-radius-sm);
+  background: transparent;
+  color: var(--ds-semantic-text-secondary);
+  font-size: var(--ds-font-size-small);
+  font-weight: var(--ds-font-weight-medium);
+  cursor: pointer;
+  transition: all var(--ds-motion-duration-fast) var(--ds-motion-easing-standard);
+}
+.ds-segmented__item:hover { color: var(--ds-semantic-text-primary); }
+.ds-segmented__item[aria-pressed='true'] {
+  background-color: var(--ds-semantic-bg-surface);
+  color: var(--ds-semantic-text-primary);
+  box-shadow: var(--ds-shadow-xs);
+}
+
+/* 日期范围 */
+.ds-daterange {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+  height: var(--ds-component-input-height-md);
+  padding: 0 var(--ds-space-3);
+  border: 1px solid var(--ds-semantic-border-input);
+  border-radius: var(--ds-component-input-radius);
+  background-color: var(--ds-semantic-bg-surface);
+  font-size: var(--ds-font-size-body);
+  cursor: pointer;
+}
+.ds-daterange:focus-visible { outline: 2px solid var(--ds-semantic-border-focus); outline-offset: 2px; }
+.ds-daterange__sep { color: var(--ds-semantic-text-tertiary); }
+
+/* ============ 看板栅格 ============ */
+.ds-grid {
+  display: grid;
+  gap: var(--ds-space-4);
+}
+.ds-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.ds-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ds-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ds-grid--2-1 { grid-template-columns: 2fr 1fr; }
+.ds-grid--1-2 { grid-template-columns: 1fr 2fr; }
+.ds-grid--3-2 { grid-template-columns: 3fr 2fr; }
+
+@media (max-width: 1280px) {
+  .ds-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ds-grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ds-grid--2-1,
+  .ds-grid--1-2,
+  .ds-grid--3-2 { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 768px) {
+  .ds-grid--4,
+  .ds-grid--3,
+  .ds-grid--2 { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ============ 洞察列表 ============ */
+.ds-insight { display: flex; flex-direction: column; }
+.ds-insight__item {
+  display: flex;
+  gap: var(--ds-space-3);
+  padding: var(--ds-space-4) 0;
+  border-bottom: 1px solid var(--ds-semantic-border-subtle);
+}
+.ds-insight__item:last-child { border-bottom: none; }
+.ds-insight__index {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ds-radius-full);
+  background-color: var(--ds-semantic-bg-surface-muted);
+  color: var(--ds-semantic-text-secondary);
+  font-size: var(--ds-font-size-micro);
+  font-weight: var(--ds-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+.ds-insight__title { font-size: var(--ds-font-size-body); font-weight: var(--ds-font-weight-medium); }
+.ds-insight__desc { font-size: var(--ds-font-size-small); color: var(--ds-semantic-text-tertiary); margin-top: var(--ds-space-1); }
+
+/* ============ 阈值条 ============ */
+.ds-threshold { display: flex; flex-direction: column; gap: var(--ds-space-2); }
+.ds-threshold__row { display: flex; align-items: center; justify-content: space-between; gap: var(--ds-space-3); font-size: var(--ds-font-size-small); }
+.ds-threshold__name { color: var(--ds-semantic-text-secondary); }
+.ds-threshold__value { font-variant-numeric: tabular-nums; font-weight: var(--ds-font-weight-medium); }
+.ds-threshold__track { height: 6px; border-radius: var(--ds-radius-full); background-color: var(--ds-semantic-bg-surface-muted); overflow: hidden; }
+.ds-threshold__fill { height: 100%; border-radius: var(--ds-radius-full); transition: width var(--ds-motion-duration-slow) var(--ds-motion-easing-standard); }
+.ds-threshold__fill--normal { background-color: var(--ds-semantic-chart-series-1); }
+.ds-threshold__fill--warning { background-color: var(--ds-semantic-feedback-warning-fg); }
+.ds-threshold__fill--danger { background-color: var(--ds-semantic-feedback-danger-fg); }
+
+/* ============ 加载遮罩 ============ */
+.ds-loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-3);
+  background-color: rgba(255, 255, 255, 0.72);
+  border-radius: inherit;
+  font-size: var(--ds-font-size-small);
+  color: var(--ds-semantic-text-secondary);
+  z-index: var(--ds-z-index-raised);
+}
+.ds-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--ds-semantic-border-default);
+  border-top-color: var(--ds-semantic-action-primary-bg);
+  border-radius: 50%;
+  animation: ds-spin 0.7s linear infinite;
+}

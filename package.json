@@ -1,0 +1,68 @@
+{
+  "name": "@hosa/design-system",
+  "version": "1.0.0",
+  "description": "后鲨（HOSA）设计规范系统 —— Token 单一数据源 + 双层组件库 + 吉祥物层 + Figma Token 导出",
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "SKILL.md",
+    "assets/tokens/tokens.css",
+    "assets/tokens/tokens.scss",
+    "assets/tokens/tokens.ts",
+    "assets/tokens/tokens.resolved.json",
+    "assets/tokens/figma-tokens.json",
+    "assets/styles/*.css",
+    "assets/components/*.tsx",
+    "assets/mascot/*.png",
+    "assets/templates/*.tsx",
+    "references/*.md",
+    "scripts/*.mjs"
+  ],
+  "exports": {
+    ".": "./assets/components/index.ts",
+    "./styles.css": "./assets/styles/index.css",
+    "./tokens.css": "./assets/tokens/tokens.css",
+    "./tokens.scss": "./assets/tokens/tokens.scss",
+    "./tokens": "./assets/tokens/tokens.ts",
+    "./figma-tokens.json": "./assets/tokens/figma-tokens.json"
+  },
+  "scripts": {
+    "tokens": "node scripts/build-tokens.mjs",
+    "tokens:check": "node scripts/check-contrast.mjs",
+    "figma:tokens": "node scripts/build-figma-tokens.mjs",
+    "install:local": "node scripts/install.mjs --target . --react",
+    "mascot:palette": "node scripts/extract-palette.mjs assets/mascot/hosa-main.png",
+    "mascot:process": "node scripts/process-assets.mjs",
+    "mascot:split": "node scripts/split-poses.mjs"
+  },
+  "keywords": [
+    "design-system",
+    "design-tokens",
+    "react",
+    "typescript",
+    "dashboard",
+    "figma",
+    "accessibility",
+    "wcag",
+    "hosa"
+  ],
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": { "optional": true },
+    "react-dom": { "optional": true }
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.6.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hosa/design-system.git"
+  }
+}

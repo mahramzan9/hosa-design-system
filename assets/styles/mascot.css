@@ -1,0 +1,185 @@
+/**
+ * 吉祥物层 — 组件样式
+ * 依赖: base.css + components.css
+ *
+ * 与通用规范层的隔离规则（强约束）:
+ *   1. 本文件中所有颜色一律走 --ds-mascot-* 变量，禁止硬编码色值。
+ *   2. 吉祥物元素不参与通用布局流（不占用栅格列），只作为装饰/标识叠加层。
+ *   3. 吉祥物不得作为唯一的信息载体；任何用吉祥物表达的状态都必须同时有文本。
+ *   4. 吉祥物图形自带 mascot.ink 描边，保证在任意底色上 ≥3:1 可感知。
+ *
+ * 覆盖组件:
+ *   MascotMark（Logo 标识） / MascotBadge（吉祥物徽章） / MascotBubble（气泡）
+ *   MascotIllustration（插画） / MascotState（吉祥物状态插画） / MascotIcon（图标组）
+ */
+
+/* ============ 吉祥物 Logo 标识 ============ */
+.ds-mascot-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-3);
+  color: var(--ds-semantic-mascot-ink);
+}
+.ds-mascot-mark__glyph {
+  flex: 0 0 auto;
+  display: block;
+}
+.ds-mascot-mark__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  line-height: 1.15;
+}
+.ds-mascot-mark__name {
+  font-family: var(--ds-font-family-display);
+  font-size: var(--ds-font-size-title);
+  font-weight: var(--ds-font-weight-bold);
+  letter-spacing: var(--ds-font-letter-spacing-tight);
+  color: var(--ds-semantic-text-primary);
+}
+.ds-mascot-mark__tagline {
+  font-size: var(--ds-font-size-micro);
+  color: var(--ds-semantic-text-tertiary);
+  letter-spacing: var(--ds-font-letter-spacing-wide);
+}
+
+/* ============ 吉祥物徽章 ============ */
+.ds-mascot-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: var(--ds-component-mascot-badge-size);
+  height: var(--ds-component-mascot-badge-size);
+  border-radius: var(--ds-radius-full);
+  background-color: var(--ds-semantic-mascot-surface);
+  border: 1px solid var(--ds-semantic-mascot-surface-strong);
+  overflow: hidden;
+}
+.ds-mascot-badge--lg {
+  width: var(--ds-component-mascot-mark-size);
+  height: var(--ds-component-mascot-mark-size);
+}
+.ds-mascot-badge--xl {
+  width: 48px;
+  height: 48px;
+}
+
+/* ============ 吉祥物图标组 ============ */
+.ds-mascot-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: var(--ds-component-mascot-badge-size);
+  height: var(--ds-component-mascot-badge-size);
+  color: var(--ds-semantic-mascot-ink);
+}
+.ds-mascot-icon__svg { width: 100%; height: 100%; display: block; }
+
+/* ============ 吉祥物气泡 ============ */
+.ds-mascot-bubble {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-3);
+  max-width: 420px;
+  padding: var(--ds-space-3) var(--ds-space-4);
+  background-color: var(--ds-semantic-mascot-bubble-bg);
+  border: 1px solid var(--ds-semantic-mascot-surface-strong);
+  border-radius: var(--ds-component-mascot-bubble-radius);
+  color: var(--ds-semantic-mascot-bubble-fg);
+  font-size: var(--ds-font-size-body);
+  line-height: var(--ds-font-line-height-normal);
+}
+.ds-mascot-bubble::after {
+  content: '';
+  position: absolute;
+  left: 22px;
+  bottom: calc(-1 * var(--ds-component-mascot-bubble-tail-size));
+  width: var(--ds-component-mascot-bubble-tail-size);
+  height: var(--ds-component-mascot-bubble-tail-size);
+  background-color: var(--ds-semantic-mascot-bubble-bg);
+  border-right: 1px solid var(--ds-semantic-mascot-surface-strong);
+  border-bottom: 1px solid var(--ds-semantic-mascot-surface-strong);
+  transform: rotate(45deg);
+}
+.ds-mascot-bubble__avatar { flex: 0 0 auto; z-index: 1; }
+.ds-mascot-bubble__text { flex: 1 1 auto; min-width: 0; }
+.ds-mascot-bubble--tail-right::after { left: auto; right: 22px; }
+
+/* ============ 吉祥物插画 ============ */
+.ds-mascot-illustration {
+  display: block;
+  width: 100%;
+  max-width: var(--ds-component-mascot-hero-size);
+  height: auto;
+}
+.ds-mascot-illustration--hero { max-width: 160px; }
+
+/* ============ 吉祥物状态插画（空态/加载/错误） ============ */
+.ds-mascot-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ds-space-4);
+  padding: var(--ds-space-10) var(--ds-space-6);
+  text-align: center;
+}
+.ds-mascot-state__figure {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.ds-mascot-state__figure svg { display: block; }
+.ds-mascot-state__title {
+  font-size: var(--ds-font-size-title-sm);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-semantic-text-primary);
+}
+.ds-mascot-state__desc {
+  font-size: var(--ds-font-size-small);
+  color: var(--ds-semantic-text-tertiary);
+  max-width: 44ch;
+}
+.ds-mascot-state__actions { display: flex; gap: var(--ds-space-3); margin-top: var(--ds-space-1); }
+
+/* 吉祥物旁挂提示标签 */
+.ds-mascot-pin {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-1);
+  height: 22px;
+  padding: 0 var(--ds-space-2);
+  border-radius: var(--ds-radius-full);
+  background-color: var(--ds-semantic-mascot-accent);
+  color: var(--ds-semantic-mascot-ink);
+  font-size: var(--ds-font-size-micro);
+  font-weight: var(--ds-font-weight-semibold);
+  border: 1px solid var(--ds-semantic-mascot-ink);
+}
+
+/* ============ 吉祥物品牌带（看板页脚/横幅） ============ */
+.ds-mascot-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-6);
+  padding: var(--ds-space-5) var(--ds-space-6);
+  border-radius: var(--ds-component-card-radius);
+  background-color: var(--ds-semantic-mascot-surface);
+  border: 1px solid var(--ds-semantic-mascot-surface-strong);
+  overflow: hidden;
+}
+.ds-mascot-band__body { display: flex; flex-direction: column; gap: var(--ds-space-2); }
+.ds-mascot-band__title {
+  font-size: var(--ds-font-size-title-sm);
+  font-weight: var(--ds-font-weight-semibold);
+  color: var(--ds-semantic-mascot-ink);
+}
+.ds-mascot-band__desc { font-size: var(--ds-font-size-small); color: var(--ds-semantic-text-secondary); }
+.ds-mascot-band__figure { flex: 0 0 auto; }

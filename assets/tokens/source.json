@@ -1,0 +1,389 @@
+{
+  "$meta": {
+    "name": "Design System Source",
+    "version": "1.0.0",
+    "updated": "2026-11-11",
+    "layers": [
+      "primitive（原始色阶，不直接给业务使用）",
+      "semantic（语义层，通用规范唯一可被业务引用的颜色入口）",
+      "component（组件层，仅组件内部引用）",
+      "mascot（吉祥物层，与通用规范/看板严格隔离）"
+    ],
+    "note": "任何业务代码不得直接引用 primitive.*，只能引用 semantic.* 或 component.*。"
+  },
+
+  "primitive": {
+    "mascot": {
+      "$note": "后鲨(HOSA)专属色板。main/accent/support 由 mascot/assets/hosa-main.png 像素级提取(占比前三的实色)，deep 为提取到的最深海军蓝，surface/surface-strong/bubble 为基于 main 派生的浅蓝底。深海军蓝为后鲨专属色域(色相205-225且明度<30%)，通用规范层禁止使用。",
+      "main": "#034285",
+      "accent": "#EAC46D",
+      "support": "#AE2129",
+      "deep": "#142D4F",
+      "surface": "#EEF3FA",
+      "surface-strong": "#D8E5F4",
+      "bubble": "#F5F9FD"
+    },
+    "gray": {
+      "0": "#FFFFFF",
+      "25": "#FCFCFD",
+      "50": "#F7F8FA",
+      "100": "#F1F3F6",
+      "150": "#E8EBF0",
+      "200": "#E0E4EA",
+      "300": "#CFD4DC",
+      "400": "#A9B1BE",
+      "500": "#828B9B",
+      "600": "#616A7B",
+      "700": "#454D5D",
+      "800": "#2C323E",
+      "900": "#1B2028",
+      "950": "#11151C"
+    },
+    "brand": {
+      "$note": "通用规范层主色。刻意选用紫罗兰色相(H≈271)，与后鲨吉祥物的深海军蓝(H≈211)分离约 60°，确保两者同屏出现时互不混淆。蓝色系为后鲨专属，不在本层使用。",
+      "50": "#F5F1FF",
+      "100": "#EDE6FE",
+      "200": "#DDD2FE",
+      "300": "#C4B0FB",
+      "400": "#A684F8",
+      "500": "#8B5CF6",
+      "600": "#7C3AED",
+      "700": "#6D28D9",
+      "800": "#5B21B6",
+      "900": "#4C1D95"
+    },
+    "accent": {
+      "$note": "辅助强调色，青绿色相(H≈177)。用于图表第二序列与次要强调，不用于按钮。",
+      "50": "#E6FBF8",
+      "100": "#C3F5EF",
+      "200": "#8AE9DE",
+      "300": "#4FD8C8",
+      "400": "#22BFAE",
+      "500": "#0FA396",
+      "600": "#0B8379",
+      "700": "#0A6A62"
+    },
+    "status": {
+      "success": {
+        "50": "#ECFDF3",
+        "100": "#D1FADF",
+        "300": "#6CE9A6",
+        "500": "#12B76A",
+        "600": "#039855",
+        "700": "#027A48"
+      },
+      "warning": {
+        "50": "#FFFAEB",
+        "100": "#FEF0C7",
+        "300": "#FDB022",
+        "500": "#F79009",
+        "600": "#DC6803",
+        "700": "#B54708"
+      },
+      "danger": {
+        "50": "#FEF3F2",
+        "100": "#FEE4E2",
+        "300": "#FDA29B",
+        "500": "#F04438",
+        "600": "#D92D20",
+        "700": "#B42318"
+      },
+      "info": {
+        "50": "#EFF8FF",
+        "100": "#D1E9FF",
+        "300": "#84CAFF",
+        "500": "#0BA5EC",
+        "600": "#0086C9",
+        "700": "#026AA2"
+      }
+    }
+  },
+
+  "semantic": {
+    "bg": {
+      "canvas": "{primitive.gray.50}",
+      "surface": "{primitive.gray.0}",
+      "surface-subtle": "{primitive.gray.100}",
+      "surface-muted": "{primitive.gray.150}",
+      "surface-inverse": "{primitive.gray.900}",
+      "overlay": "rgba(16, 20, 28, 0.56)"
+    },
+    "border": {
+      "$note": "default 为装饰性分隔线（WCAG 1.4.11 豁免）；input 用于表单控件边框，必须满足 3:1；strong 用于表头分隔与强分隔，满足 4.5:1。",
+      "subtle": "{primitive.gray.150}",
+      "default": "{primitive.gray.200}",
+      "input": "{primitive.gray.500}",
+      "strong": "{primitive.gray.600}",
+      "inverse": "rgba(255, 255, 255, 0.16)",
+      "focus": "{primitive.brand.500}"
+    },
+    "text": {
+      "primary": "{primitive.gray.900}",
+      "secondary": "{primitive.gray.700}",
+      "tertiary": "{primitive.gray.600}",
+      "disabled": "{primitive.gray.400}",
+      "inverse": "{primitive.gray.0}",
+      "inverse-secondary": "{primitive.gray.300}",
+      "link": "{primitive.brand.600}",
+      "link-hover": "{primitive.brand.700}"
+    },
+    "icon": {
+      "primary": "{primitive.gray.700}",
+      "secondary": "{primitive.gray.500}",
+      "tertiary": "{primitive.gray.400}",
+      "inverse": "{primitive.gray.0}",
+      "brand": "{primitive.brand.600}"
+    },
+    "action": {
+      "primary-bg": "{primitive.brand.600}",
+      "primary-bg-hover": "{primitive.brand.700}",
+      "primary-bg-active": "{primitive.brand.800}",
+      "primary-fg": "{primitive.gray.0}",
+      "secondary-bg": "{primitive.gray.0}",
+      "secondary-bg-hover": "{primitive.gray.100}",
+      "secondary-fg": "{primitive.gray.800}",
+      "tertiary-bg-hover": "{primitive.gray.100}",
+      "tertiary-fg": "{primitive.gray.700}",
+      "ghost-fg": "{primitive.gray.600}",
+      "ghost-fg-hover": "{primitive.gray.900}",
+      "danger-bg": "{primitive.status.danger.600}",
+      "danger-bg-hover": "{primitive.status.danger.700}",
+      "danger-fg": "{primitive.gray.0}",
+      "disabled-bg": "{primitive.gray.100}",
+      "disabled-fg": "{primitive.gray.400}"
+    },
+    "trend": {
+      "$note": "产品指标方向语义。与证券行情的『红涨绿跌』惯例不同：本系统中 trend-positive 表示业务正向，trend-negative 表示业务负向，二者不随市场惯例反转。",
+      "positive": "{primitive.status.success.700}",
+      "positive-bg": "{primitive.status.success.50}",
+      "negative": "{primitive.status.danger.700}",
+      "negative-bg": "{primitive.status.danger.50}",
+      "flat": "{primitive.gray.600}"
+    },
+    "feedback": {
+      "$note": "四态反馈容器。容器文字用 -700 档（≥5:1），容器描边用 -600 档（≥3.3:1，满足非文字对比）。图标与标题文字用 -700 档。",
+      "success-bg": "{primitive.status.success.50}",
+      "success-border": "{primitive.status.success.600}",
+      "success-fg": "{primitive.status.success.700}",
+      "warning-bg": "{primitive.status.warning.50}",
+      "warning-border": "{primitive.status.warning.600}",
+      "warning-fg": "{primitive.status.warning.700}",
+      "danger-bg": "{primitive.status.danger.50}",
+      "danger-border": "{primitive.status.danger.600}",
+      "danger-fg": "{primitive.status.danger.700}",
+      "info-bg": "{primitive.status.info.50}",
+      "info-border": "{primitive.status.info.600}",
+      "info-fg": "{primitive.status.info.700}"
+    },
+    "chart": {
+      "grid": "{primitive.gray.150}",
+      "axis": "{primitive.gray.500}",
+      "axis-label": "{primitive.gray.600}",
+      "tooltip-bg": "{primitive.gray.900}",
+      "tooltip-fg": "{primitive.gray.0}",
+      "series-1": "{primitive.brand.600}",
+      "series-2": "{primitive.accent.600}",
+      "series-3": "{primitive.status.info.600}",
+      "series-4": "{primitive.status.warning.600}",
+      "series-5": "{primitive.status.danger.600}",
+      "series-6": "{primitive.status.success.600}"
+    },
+    "mascot": {
+      "$note": "吉祥物层专属。严禁在通用组件（按钮/表格/表单）中使用 mascot.* 作为背景或文字色。仅用于：① 吉祥物形象本身（fill / accent / support）；② 吉祥物图标描边与吉祥物气泡文字（ink）；③ 吉祥物状态插画底色（surface / surface-strong）。",
+      "fill": "{primitive.mascot.main}",
+      "accent": "{primitive.mascot.accent}",
+      "support": "{primitive.mascot.support}",
+      "ink": "{primitive.mascot.deep}",
+      "surface": "{primitive.mascot.surface}",
+      "surface-strong": "{primitive.mascot.surface-strong}",
+      "bubble-bg": "{primitive.mascot.bubble}",
+      "bubble-fg": "{primitive.mascot.deep}"
+    }
+  },
+
+  "font": {
+    "family": {
+      "sans": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif",
+      "mono": "'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, Consolas, 'Liberation Mono', monospace",
+      "display": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif"
+    },
+    "size": {
+      "micro": "11px",
+      "caption": "12px",
+      "small": "13px",
+      "body": "14px",
+      "body-lg": "16px",
+      "title-sm": "16px",
+      "title": "18px",
+      "title-lg": "20px",
+      "heading": "24px",
+      "heading-lg": "30px",
+      "display": "36px",
+      "display-lg": "48px"
+    },
+    "weight": {
+      "regular": "400",
+      "medium": "500",
+      "semibold": "600",
+      "bold": "700"
+    },
+    "line-height": {
+      "tight": "1.25",
+      "snug": "1.4",
+      "normal": "1.6",
+      "relaxed": "1.75"
+    },
+    "letter-spacing": {
+      "tight": "-0.01em",
+      "normal": "0",
+      "wide": "0.02em",
+      "caps": "0.06em"
+    }
+  },
+
+  "space": {
+    "0": "0px",
+    "1": "4px",
+    "2": "8px",
+    "3": "12px",
+    "4": "16px",
+    "5": "20px",
+    "6": "24px",
+    "8": "32px",
+    "10": "40px",
+    "12": "48px",
+    "16": "64px",
+    "20": "80px",
+    "24": "96px"
+  },
+
+  "radius": {
+    "none": "0px",
+    "xs": "2px",
+    "sm": "4px",
+    "md": "6px",
+    "lg": "8px",
+    "xl": "12px",
+    "2xl": "16px",
+    "3xl": "24px",
+    "full": "999px"
+  },
+
+  "shadow": {
+    "none": "none",
+    "xs": "0 1px 2px 0 rgba(16, 20, 28, 0.05)",
+    "sm": "0 1px 3px 0 rgba(16, 20, 28, 0.08), 0 1px 2px -1px rgba(16, 20, 28, 0.06)",
+    "md": "0 4px 8px -2px rgba(16, 20, 28, 0.08), 0 2px 4px -2px rgba(16, 20, 28, 0.04)",
+    "lg": "0 12px 20px -6px rgba(16, 20, 28, 0.10), 0 4px 8px -4px rgba(16, 20, 28, 0.05)",
+    "xl": "0 24px 48px -12px rgba(16, 20, 28, 0.16)",
+    "focus": "0 0 0 3px rgba(99, 102, 241, 0.20)",
+    "focus-danger": "0 0 0 3px rgba(217, 45, 32, 0.18)"
+  },
+
+  "motion": {
+    "duration": {
+      "instant": "0ms",
+      "fast": "120ms",
+      "normal": "200ms",
+      "slow": "320ms",
+      "slower": "480ms"
+    },
+    "easing": {
+      "standard": "cubic-bezier(0.2, 0, 0, 1)",
+      "decelerate": "cubic-bezier(0, 0, 0, 1)",
+      "accelerate": "cubic-bezier(0.3, 0, 1, 1)",
+      "spring": "cubic-bezier(0.34, 1.4, 0.64, 1)"
+    }
+  },
+
+  "z-index": {
+    "base": "0",
+    "raised": "10",
+    "sticky": "100",
+    "dropdown": "300",
+    "overlay": "400",
+    "modal": "500",
+    "popover": "600",
+    "toast": "700",
+    "tooltip": "800"
+  },
+
+  "breakpoint": {
+    "xs": "480px",
+    "sm": "768px",
+    "md": "1024px",
+    "lg": "1280px",
+    "xl": "1536px"
+  },
+
+  "component": {
+    "button": {
+      "height-sm": "28px",
+      "height-md": "36px",
+      "height-lg": "44px",
+      "padding-x-sm": "10px",
+      "padding-x-md": "16px",
+      "padding-x-lg": "20px",
+      "radius": "{radius.md}",
+      "font-size-sm": "{font.size.caption}",
+      "font-size-md": "{font.size.body}",
+      "font-size-lg": "{font.size.body-lg}"
+    },
+    "input": {
+      "height-sm": "28px",
+      "height-md": "36px",
+      "height-lg": "44px",
+      "padding-x": "12px",
+      "radius": "{radius.md}",
+      "font-size": "{font.size.body}"
+    },
+    "card": {
+      "padding": "{space.6}",
+      "padding-compact": "{space.4}",
+      "radius": "{radius.xl}",
+      "border": "1px solid {semantic.border.subtle}",
+      "shadow": "{shadow.xs}"
+    },
+    "badge": {
+      "height-sm": "20px",
+      "height-md": "24px",
+      "padding-x": "8px",
+      "radius": "{radius.full}",
+      "font-size": "{font.size.caption}"
+    },
+    "table": {
+      "row-height": "48px",
+      "row-height-compact": "36px",
+      "header-height": "40px",
+      "cell-padding-x": "{space.4}",
+      "cell-padding-y": "{space.3}"
+    },
+    "metric-card": {
+      "min-width": "200px",
+      "padding": "{space.5}",
+      "radius": "{radius.lg}",
+      "value-font-size": "28px",
+      "label-font-size": "{font.size.small}"
+    },
+    "chart": {
+      "height-xs": "120px",
+      "height-sm": "180px",
+      "height-md": "260px",
+      "height-lg": "360px",
+      "legend-gap": "{space.4}",
+      "axis-title-size": "{font.size.caption}"
+    },
+    "sidebar": {
+      "width-collapsed": "64px",
+      "width-expanded": "232px",
+      "item-height": "40px"
+    },
+    "mascot": {
+      "badge-size": "20px",
+      "mark-size": "32px",
+      "hero-size": "120px",
+      "bubble-radius": "{radius.xl}",
+      "bubble-tail-size": "8px"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+# 统一换行符，避免跨平台 diff 噪音
+* text=auto eol=lf
+
+*.md   text eol=lf
+*.ts   text eol=lf
+*.tsx  text eol=lf
+*.css  text eol=lf
+*.json text eol=lf
+*.mjs  text eol=lf
+*.yml  text eol=lf
+*.svg  text eol=lf
+*.html text eol=lf
+
+*.png binary
